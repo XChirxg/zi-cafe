@@ -75,11 +75,16 @@
         }
 
         .logo {
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             background: url('logo.png') center/contain no-repeat;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .cafe-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
         }
 
         .dark-theme .logo {
@@ -438,37 +443,82 @@
             box-shadow: 0 6px 15px rgba(0,0,0,0.2);
         }
 
-        /* Floating Call Button */
-        .floating-call {
+        /* Floating Action Buttons */
+        .floating-buttons {
             position: fixed;
             bottom: 30px;
             right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .floating-btn {
             width: 60px;
             height: 60px;
-            background: #ff6b6b;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.5rem;
-            box-shadow: 0 4px 20px rgba(255, 107, 107, 0.4);
-            z-index: 1000;
+            font-size: 1.4rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
             animation: float 3s ease-in-out infinite;
         }
 
-        .floating-call:hover {
+        .floating-btn.call {
+            background: #ff6b6b;
+            animation-delay: 0s;
+        }
+
+        .floating-btn.book {
+            background: #25d366;
+            animation-delay: 0.5s;
+        }
+
+        .floating-btn:hover {
             transform: scale(1.1);
-            box-shadow: 0 6px 30px rgba(255, 107, 107, 0.6);
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.4);
             color: white;
+        }
+
+        .floating-btn.call:hover {
+            box-shadow: 0 6px 30px rgba(255, 107, 107, 0.6);
+        }
+
+        .floating-btn.book:hover {
+            box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
         }
 
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* Tooltip for floating buttons */
+        .floating-btn::before {
+            content: attr(data-tooltip);
+            position: absolute;
+            right: 70px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .floating-btn:hover::before {
+            opacity: 1;
         }
     </style>
 </head>
@@ -481,6 +531,7 @@
             
             <div class="logo-container">
                 <div class="logo"></div>
+                <h1 class="cafe-name">ZiCafe</h1>
             </div>
             
             <p class="tagline">Premium Taste, Perfect Moments</p>
@@ -647,16 +698,25 @@
                     </a>
                 </div>
 
-                <div>
-                    <i class="fas fa-heart" style="color: #ff6b6b;"></i> Crafted with love in the hills of Himachal <i class="fas fa-heart" style="color: #ff6b6b;"></i>
+                <div style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-top: 15px;">
+                    <img src="budh.png" alt="Buddha" style="width: 40px; height: 40px; opacity: 0.8; border-radius: 50%;">
+                    <span>
+                        <i class="fas fa-heart" style="color: #ff6b6b;"></i> Crafted with love in the hills of Himachal <i class="fas fa-heart" style="color: #ff6b6b;"></i>
+                    </span>
+                    <img src="budh.png" alt="Buddha" style="width: 40px; height: 40px; opacity: 0.8; border-radius: 50%;">
                 </div>
             </div>
         </footer>
         
-        <!-- Floating Call Button -->
-        <a href="tel:+918219899417" class="floating-call">
-            <i class="fas fa-phone"></i>
-        </a>
+        <!-- Floating Action Buttons -->
+        <div class="floating-buttons">
+            <a href="tel:+918219899417" class="floating-btn call" data-tooltip="Call Now">
+                <i class="fas fa-phone"></i>
+            </a>
+            <a href="https://wa.me/918219899417?text=Hello%20ZiCafe!%20I%20would%20like%20to%20book%20a%20table%20in%20advance.%20Please%20let%20me%20know%20the%20availability." class="floating-btn book" data-tooltip="Book Table">
+                <i class="fas fa-calendar-alt"></i>
+            </a>
+        </div>
     </div>
 
     <script>
