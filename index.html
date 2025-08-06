@@ -29,15 +29,15 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="30" fill="none" stroke="white" stroke-width="0.5" opacity="0.3"/><circle cx="50" cy="50" r="20" fill="none" stroke="white" stroke-width="0.3" opacity="0.2"/><circle cx="50" cy="50" r="10" fill="white" opacity="0.1"/></svg>') center/contain no-repeat;
-            opacity: 0.3;
+            background: url('budh.png') center/cover no-repeat;
+            opacity: 0.15;
             z-index: 0;
             transition: filter 0.3s ease;
         }
 
         body.dark-theme::before {
             filter: invert(1);
-            opacity: 0.4;
+            opacity: 0.25;
         }
 
         .container {
@@ -75,11 +75,11 @@
         }
 
         .logo {
-            width: 60px;
-            height: 60px;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="white" stroke="none"/><text x="50" y="60" text-anchor="middle" fill="%23008080" font-family="serif" font-size="32" font-weight="bold">Z</text></svg>') center/contain no-repeat;
-            border-radius: 50%;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            width: 50px;
+            height: 50px;
+            background: url('logo.png') center/contain no-repeat;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
 
         .dark-theme .logo {
@@ -437,6 +437,39 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 15px rgba(0,0,0,0.2);
         }
+
+        /* Floating Call Button */
+        .floating-call {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 20px rgba(255, 107, 107, 0.4);
+            z-index: 1000;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .floating-call:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(255, 107, 107, 0.6);
+            color: white;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
     </style>
 </head>
 <body>
@@ -619,6 +652,11 @@
                 </div>
             </div>
         </footer>
+        
+        <!-- Floating Call Button -->
+        <a href="tel:+918219899417" class="floating-call">
+            <i class="fas fa-phone"></i>
+        </a>
     </div>
 
     <script>
@@ -655,36 +693,6 @@
                     item.style.transform = 'translateX(0)';
                 }, index * 30);
             });
-
-            // Add current time and status
-            function updateInfo() {
-                const now = new Date();
-                const timeString = now.toLocaleTimeString('en-IN', {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    timeZone: 'Asia/Kolkata'
-                });
-                
-                // Check if open (assuming 8 AM to 10 PM)
-                const hour = now.getHours();
-                const isOpen = hour >= 8 && hour < 22;
-                const statusElement = document.querySelector('.hours-status');
-                
-                if (statusElement) {
-                    statusElement.innerHTML = isOpen ? 
-                        '<i class="fas fa-clock"></i> Open Now' : 
-                        '<i class="fas fa-clock"></i> Closed';
-                    statusElement.style.color = isOpen ? '#4caf50' : '#f44336';
-                }
-                
-                const taglineElement = document.querySelector('.tagline');
-                if (taglineElement) {
-                    taglineElement.innerHTML = `Premium Taste, Perfect Moments • ${timeString}`;
-                }
-            }
-            
-            updateInfo();
-            setInterval(updateInfo, 60000);
 
             // Add click animations
             menuItems.forEach(item => {
