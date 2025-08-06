@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zi Cafe - QR Code</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #134e4a 50%, #064e3b 75%, #000000 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(20, 184, 166, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(20, 184, 166, 0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 50px 40px;
+            box-shadow: 
+                0 25px 50px -12px rgba(0, 0, 0, 0.6),
+                0 0 0 1px rgba(20, 184, 166, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(20, 184, 166, 0.2);
+            max-width: 450px;
+            width: 90%;
+            animation: fadeIn 0.8s ease-out;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 3.2em;
+            margin-bottom: 10px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffffff 0%, #14b8a6 30%, #ffffff 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: none;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            margin-bottom: 40px;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .qr-container {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            display: inline-block;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .qr-container:hover {
+            transform: scale(1.05);
+        }
+
+        #qrcode {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .instructions {
+            font-size: 1.1em;
+            margin-top: 20px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .url-display {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 10px 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            word-break: break-all;
+        }
+
+        .link {
+            color: #ffd700;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .link:hover {
+            color: #ffed4e;
+            text-decoration: underline;
+        }
+
+        .coffee-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="coffee-icon">☕</div>
+        <h1>Zi Cafe</h1>
+        <p class="subtitle">Scan to Visit</p>
+        
+        <div class="qr-container">
+            <div id="qrcode"></div>
+        </div>
+        
+        <p class="instructions">
+            Point your phone's camera at the QR code above to visit our website instantly!
+        </p>
+        
+        <div class="url-display">
+            <a href="https://Xchirxg.github.io/zi-cafe" target="_blank" class="link">
+                https://Xchirxg.github.io/zi-cafe
+            </a>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.3/qrcode.min.js"></script>
+    <script>
+        // Generate QR code when page loads
+        window.onload = function() {
+            const url = 'https://Xchirxg.github.io/zi-cafe';
+            
+            QRCode.toCanvas(document.getElementById('qrcode'), url, {
+                width: 200,
+                height: 200,
+                colorDark: '#000000',
+                colorLight: '#ffffff',
+                correctLevel: QRCode.CorrectLevel.M
+            }, function (error) {
+                if (error) {
+                    console.error('Error generating QR code:', error);
+                    document.getElementById('qrcode').innerHTML = 
+                        '<p style="color: red;">Error generating QR code</p>';
+                }
+            });
+        };
+    </script>
+</body>
+</html>
